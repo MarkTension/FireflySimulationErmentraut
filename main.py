@@ -4,17 +4,24 @@ from agentClass import Agent
 import connectivity
 
 import plotly.express as px
-from plotly.offline import plot
 import plotly.graph_objects as go
 
-import matplotlib.pyplot as plt
 
+"""
+This is a simulation for firefly synchronisation
+Based on Firefly-inspired Heartbeat Synchronization in Overlay Networks, 
+http://www.cs.unibo.it/babaoglu/courses/cas06-07/papers/pdf/fireflies.pdf
 
+Adapted for discrete time simulation
+"""
 
 class params:
+  """
+  parameters for simulation
+  """
   fps = 60
   numAgents = 800
-  NaturalFrequency = 1 # Hz 
+  NaturalFrequency = 1 # Hz
   OmegaHigh = 1.5
   OmegaLow = 0.5
   connectivity = 0.1

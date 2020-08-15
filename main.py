@@ -5,6 +5,13 @@ import connectivity
 
 import plotly.express as px
 import plotly.graph_objects as go
+from synthesizer import Player, Synthesizer, Waveform
+
+import mido
+
+outport = mido.open_output('MidiBridge1')
+
+outport.send(mido.Message('note_on', note=60, velocity=64))
 
 
 """
@@ -19,15 +26,18 @@ class params:
   """
   parameters for simulation
   """
-  fps = 60
-  numAgents = 800
-  NaturalFrequency = 1 # Hz
-  OmegaHigh = 1.5
-  OmegaLow = 0.5
-  connectivity = 0.1
-  epsilon = 0.01
+  fps = 100                 # frames per second (simulation speed)
+  numAgents = 800          # 800 works well
+  NaturalFrequency = 1    # natural frequency of an agent
+  OmegaHigh = 1.5         # upper bound frequency
+  OmegaLow = 0.1          # lower bound frequency
+  connectivity = 0.2      # how densely connected: [0 - 1] 0.1 for 800
+  epsilon = 0.04          # tendency for the agent to move to natural frequecy
 
 np.random.seed(420)
+player = Player()
+player.open_stream()
+synthesizer = Synthesizer(osc1_waveform=Waveform.sine, osc1_volume=1.0, use_osc2=False)
 
 # generate adjacency matrix for connectivity
 adjMatrix = connectivity.BuildGraph(params.numAgents, params.connectivity, 0)
@@ -67,6 +77,8 @@ PlotAgent = []
 
 counter = 0
 
+fireFlies = [1,2,3,4,5,6,7, 8, 9, 10, 11,12,13,14,15,16,17,18,19,20]
+
 while running:
     lastFrameTime = StepTime(lastFrameTime) # makes loop controlable in time
     flashes = [] # will contain id's of agents that fired
@@ -77,6 +89,10 @@ while running:
       flashoutID = agent.CheckTime()
       if (flashoutID != False):
         flashes.append(flashoutID) # returns ID of flashmaker
+
+        if (flashoutID in fireFlies):
+          # player.play_wave(synthesizer.generate_constant_wave(80.0 * (flashoutID/10), 0.1))
+          outport.send(mido.Message('note_on', note=50+flashoutID, velocity=64))
 
         # save for figure
         PlotTimestamp.append(counter/params.fps)
@@ -92,9 +108,9 @@ while running:
 
 
     # PLOT DATA
-    if (counter % 600 == 0 and counter > 0):
-      fig = go.Figure(data=go.Scatter(x=PlotTimestamp, y=PlotAgent, mode='markers', marker=dict(size=3, color="Blue", opacity=0.6)))
-      fig.show()
+    # if (counter % 1900 == 0 and counter > 0):
+      # fig = go.Figure(data=go.Scatter(x=PlotTimestamp, y=PlotAgent, mode='markers', marker=dict(size=3, color="Blue", opacity=0.6)))
+      # fig.show()
 
     # generate new graph for random connectivity
     if (counter % params.fps*10 == 0 and counter > 0):

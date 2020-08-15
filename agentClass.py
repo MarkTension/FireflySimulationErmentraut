@@ -1,6 +1,5 @@
 import numpy as np
 import random
-# from synthesizer import Player, Synthesizer, Waveform
 import time
 
 class Agent():
@@ -24,19 +23,19 @@ class Agent():
     processes incoming flash
     """
     #  make sure only one flash is received per timestep
-    if (np.isclose(self.latestFlashProcessed, self.time_cur, rtol=1e-05, atol=1e-08, equal_nan=False)):
-      pass # already processed a flash this timestep
-    else:
-      self.latestFlashProcessed = self.time_cur
-      gPlus = np.max((np.sin(2 * np.pi * self.phi) / (2 * np.pi), 0))
-      gMin = -np.min((np.sin(2 * np.pi * self.phi) / (2 * np.pi), 0))
+    # if (np.isclose(self.latestFlashProcessed, self.time_cur, rtol=1e-05, atol=1e-08, equal_nan=False)):
+    #   pass # already processed a flash this timestep
+    # else:
+    self.latestFlashProcessed = self.time_cur
+    gPlus = np.max((np.sin(2 * np.pi * self.phi) / (2 * np.pi), 0))
+    gMin = -np.min((np.sin(2 * np.pi * self.phi) / (2 * np.pi), 0))
 
-      self.omegaCurrent = self.omegaCurrent + self.epsilon * (self.omegaCommon - self.omegaCurrent) \
-                          + gPlus * self.phi * (self.OmegaLow - self.omegaCurrent) \
-                          + gMin * self.phi * (self.OmegaLow - self.omegaCurrent)
+    self.omegaCurrent = self.omegaCurrent + self.epsilon * (self.omegaCommon - self.omegaCurrent) \
+                        + gPlus * self.phi * (self.OmegaLow - self.omegaCurrent) \
+                        + gMin * self.phi * (self.OmegaLow - self.omegaCurrent)
 
-      # adapt self.delta
-      self.delta = 1 / self.omegaCurrent
+    # adapt self.delta
+    self.delta = 1 / self.omegaCurrent
 
 
   def CheckTime(self):
@@ -48,6 +47,7 @@ class Agent():
 
       if (self.time_cur >= self.delta):
         self.time_cur = 0
+
         return self.id # flash
 
       else:

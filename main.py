@@ -11,8 +11,6 @@ import mido
 
 outport = mido.open_output('MidiBridge1')
 
-outport.send(mido.Message('note_on', note=60, velocity=64))
-
 
 """
 This is a simulation for firefly synchronisation
@@ -26,13 +24,13 @@ class params:
   """
   parameters for simulation
   """
-  fps = 100                 # frames per second (simulation speed)
+  fps = 260                 # frames per second (simulation speed)
   numAgents = 800          # 800 works well
   NaturalFrequency = 1    # natural frequency of an agent
   OmegaHigh = 1.5         # upper bound frequency
-  OmegaLow = 0.1          # lower bound frequency
+  OmegaLow = 0.3          # lower bound frequency
   connectivity = 0.2      # how densely connected: [0 - 1] 0.1 for 800
-  epsilon = 0.04          # tendency for the agent to move to natural frequecy
+  epsilon = 0.01          # tendency for the agent to move to natural frequecy
 
 np.random.seed(420)
 player = Player()
@@ -77,7 +75,7 @@ PlotAgent = []
 
 counter = 0
 
-fireFlies = [1,2,3,4,5,6,7, 8, 9, 10, 11,12,13,14,15,16,17,18,19,20]
+fireFlies = [31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
 
 while running:
     lastFrameTime = StepTime(lastFrameTime) # makes loop controlable in time
@@ -86,6 +84,7 @@ while running:
     # loop through agents at timepoint.
     # and check if phase is 1. If so, flash
     for agent in agents:
+      agent.omegaCommon = params.NaturalFrequency
       flashoutID = agent.CheckTime()
       if (flashoutID != False):
         flashes.append(flashoutID) # returns ID of flashmaker
@@ -98,6 +97,31 @@ while running:
         PlotTimestamp.append(counter/params.fps)
         PlotAgent.append(flashoutID)
 
+    # if (counter % 3000 == 0 and counter/params.fps != 0):
+    #   params.NaturalFrequency *= 0.75
+    #   print(f"natural freq lowererd to {params.NaturalFrequency}")
+
+
+
+
+    # now with numpy
+    # one array each.
+    # firefly phase. increase each step
+
+    # # initialize
+    # phases = np.zeros(params.numAgents)
+    # omega = np.random.uniform(params.OmegaLow, params.OmegaHigh, params.numAgents)
+    #
+    # # increase phase
+    # phases += 1 /params.fps
+    #
+    # # firefly omegaCurrent
+    # delta = 1 / omega
+    # fired = phases / delta > 1
+
+
+    # flashes = np.array(map(lambda delta, phases: delta / phases>1, np.a))
+
     # send flashes to connected neighbors
     if (len(flashes) > 0):
       for source in flashes:
@@ -108,9 +132,9 @@ while running:
 
 
     # PLOT DATA
-    # if (counter % 1900 == 0 and counter > 0):
-      # fig = go.Figure(data=go.Scatter(x=PlotTimestamp, y=PlotAgent, mode='markers', marker=dict(size=3, color="Blue", opacity=0.6)))
-      # fig.show()
+    if (counter % 1900 == 0 and counter > 0):
+      fig = go.Figure(data=go.Scatter(x=PlotTimestamp, y=PlotAgent, mode='markers', marker=dict(size=3, color="Blue", opacity=0.6)))
+      fig.show()
 
     # generate new graph for random connectivity
     if (counter % params.fps*10 == 0 and counter > 0):

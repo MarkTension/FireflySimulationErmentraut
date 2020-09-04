@@ -4,6 +4,7 @@
     <list default="true" id="0c85615a-64cf-4e00-9639-e1622c60226a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/agentClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/agentClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connectivity.py" beforeDir="false" afterPath="$PROJECT_DIR$/connectivity.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -148,18 +149,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>110</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/connectivity.py</url>
-          <line>82</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/connectivity.py</url>
-          <line>7</line>
+          <line>8</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>

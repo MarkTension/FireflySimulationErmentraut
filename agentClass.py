@@ -52,5 +52,3 @@ class Agent():
 
       else:
         return False # don't flash
-
-

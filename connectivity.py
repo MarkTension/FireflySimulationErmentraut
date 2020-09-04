@@ -1,5 +1,6 @@
 import networkx as nx
 import plotly.graph_objects as go
+import numpy as np
 
 def graph_fig(G):
   edge_x = []
@@ -77,9 +78,21 @@ def BuildGraph(numAgents, connectivity, count):
   adjacency matrix
   """
 
-  G = nx.random_geometric_graph(numAgents, connectivity)
+  # G = nx.random_geometric_graph(numAgents, connectivity)
 
-  if (count == 0):
-    graph_fig(G).show()
+  G = nx.Graph()
+  for i in range(numAgents):
+    G.add_node(i)
+
+  for node in range(numAgents):
+    neighbors = np.random.choice(numAgents, size=30, replace=False)
+    nodes = (np.ones(30) * node)
+    edges = zip(nodes.astype(int), neighbors.astype(int))
+    G.add_edges_from(list(edges))
+
+
+
+  # if (count == 0):
+  #   graph_fig(G).show()
 
   return nx.to_dict_of_lists(G)

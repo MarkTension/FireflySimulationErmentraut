@@ -101,27 +101,6 @@ while running:
     #   params.NaturalFrequency *= 0.75
     #   print(f"natural freq lowererd to {params.NaturalFrequency}")
 
-
-
-
-    # now with numpy
-    # one array each.
-    # firefly phase. increase each step
-
-    # # initialize
-    # phases = np.zeros(params.numAgents)
-    # omega = np.random.uniform(params.OmegaLow, params.OmegaHigh, params.numAgents)
-    #
-    # # increase phase
-    # phases += 1 /params.fps
-    #
-    # # firefly omegaCurrent
-    # delta = 1 / omega
-    # fired = phases / delta > 1
-
-
-    # flashes = np.array(map(lambda delta, phases: delta / phases>1, np.a))
-
     # send flashes to connected neighbors
     if (len(flashes) > 0):
       for source in flashes:

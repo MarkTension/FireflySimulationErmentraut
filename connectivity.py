@@ -71,26 +71,22 @@ def graph_fig(G):
   return fig
 
 
-def BuildGraph(numAgents, connectivity, count):
+def BuildGraph(params):
   """
-  builds a scale free graph
+  builds a graph overlay network
   :return:
-  adjacency matrix
+  dict of list adjacency matrix
   """
-
-  # G = nx.random_geometric_graph(numAgents, connectivity)
 
   G = nx.Graph()
-  for i in range(numAgents):
+  for i in range(params.numAgents):
     G.add_node(i)
 
-  for node in range(numAgents):
-    neighbors = np.random.choice(numAgents, size=30, replace=False)
-    nodes = (np.ones(30) * node)
+  for node in range(params.numAgents):
+    neighbors = np.random.choice(params.numAgents, size=params.numNeighbors, replace=False)
+    nodes = (np.ones(params.numNeighbors) * node)
     edges = zip(nodes.astype(int), neighbors.astype(int))
     G.add_edges_from(list(edges))
-
-
 
   # if (count == 0):
   #   graph_fig(G).show()

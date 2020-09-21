@@ -18,7 +18,7 @@ class params:
   """
   parameters for simulation
   """
-  algorithm = ["ermentraut","mirollo-strogatz"][0]  # firefly algorithm. Choose: index
+  algorithm = ["ermentraut","mirollo-strogatz"][1]  # firefly algorithm. Choose: index
   fps = 90                                          # frames per second (simulation speed)
   numAgents = 800                                   # 800 works well
   NaturalFrequency = 0.5                            # natural frequency of an agent

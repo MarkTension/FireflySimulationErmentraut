@@ -71,7 +71,7 @@ def graph_fig(G):
   return fig
 
 
-def BuildGraph(params):
+def build_graph(Params):
   """
   builds a graph overlay network
   :return:
@@ -79,12 +79,12 @@ def BuildGraph(params):
   """
 
   G = nx.Graph()
-  for i in range(params.numAgents):
+  for i in range(Params.num_agents):
     G.add_node(i)
 
-  for node in range(params.numAgents):
-    neighbors = np.random.choice(params.numAgents, size=params.numNeighbors, replace=False)
-    nodes = (np.ones(params.numNeighbors) * node)
+  for node in range(Params.num_agents):
+    neighbors = np.random.choice(Params.num_agents, size=Params.num_neighbors, replace=False)
+    nodes = (np.ones(Params.num_neighbors) * node)
     edges = zip(nodes.astype(int), neighbors.astype(int))
     G.add_edges_from(list(edges))
 

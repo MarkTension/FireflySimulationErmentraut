@@ -20,13 +20,16 @@ def print_message(message):
     agent.reset_sync()
 
 
-# midi input port and output port
-outport = mido.open_output('MidiBridge1')
-inport = mido.open_input("MidiBridge2", callback=print_message)
+# # midi input port and output port
+# mido.get_output_names()
+# outport = mido.open_output('MidiBridge1', virtual=True)
+# inport = mido.open_input("MidiBridge2", callback=print_message)
 
 # message output function
 def Send(note, id, velocity):
-  outport.send(mido.Message('note_on', note=50 + id + pitch, velocity=64))
+  # print('commented out')
+  a = 0
+  # outport.send(mido.Message('note_on', note=50 + id + pitch, velocity=64))
 
 
 

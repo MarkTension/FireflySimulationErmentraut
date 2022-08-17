@@ -15,7 +15,6 @@ Kuramoto implementation is based on Strogatz's excellent review on the kuramoto 
 https://www.seas.upenn.edu/~jadbabai/ESE680/Strogatz_Kuramoto.pdf
 """
 
-
 class Params:
   """
   parameters for simulation
@@ -30,7 +29,7 @@ class Params:
   epsilon = 0.01  # tendency for the agent to move to natural frequecy
   pitch = 0
   reduce_frequency = False  # does the main loop reduce the natural frequency every n steps?
-  visualize = False
+  visualize = True
 
 
 # np.random.seed(420)
